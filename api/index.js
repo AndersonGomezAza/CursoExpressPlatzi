@@ -17,7 +17,7 @@ app.use(express.json());
 
 
 // Peticion Get en la cual es nuestra pagina raiz
-app.get('/', (req, res) => {
+app.get('/api/', (req, res) => {
   res.send('Hola mi server en express');
 });
 
@@ -28,7 +28,7 @@ routerApi(app);
 const whiteList = ['https://localhost:8080', 'https://myapp.co']
 const options = {
   origin: (origin, cb) => {
-    if (whiteList.includes(origin)) {
+    if (whiteList.includes(origin) || !origin) {
       cb(null, true);
     } else {
       cb(new Error('Dominio no permitido'));
@@ -45,5 +45,5 @@ app.use(errorHandler);
 
 // Programar nuestro servidor
 app.listen(port, () => {
-  console.log(`http://${ipLan}:${port}/`);
+  console.log(`http://${ipLan}:${port}/api`);
 });
